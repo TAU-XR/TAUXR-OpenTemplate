@@ -4,7 +4,7 @@ The Base Scene provides a complete setup for developing VR experiences in this p
 
 ## Scene Contents
 
-### TXR\_Player (Prefab)
+### [TXR\_Player (Prefab)](https://github.com/TAU-XR/TAUXR-OpenTemplate/blob/main/Docs/TxrPlayer.md)
 
 The XR camera rig. Includes:
 
@@ -12,7 +12,7 @@ The XR camera rig. Includes:
 *  `OVRFaceExpressions` component: enables face tracking on quest pro devices.
 * `PositionSetter`: allows switching between predefined starting positions for testing.
 
-### TXR\_DataManager (Prefab)
+### [TXR\_DataManager (Prefab)](https://github.com/TAU-XR/TAUXR-OpenTemplate/blob/main/Docs/TXR%20Data%20Manager.md)
 
 Handles runtime data logging. Includes:
 
@@ -20,7 +20,7 @@ Handles runtime data logging. Includes:
 * `DataContinuousWriter`: logs headset, hands, and eye positions to CSV.
 * `DataExporterFaceExpression`: logs facial expression blendshape data if face tracking is enabled.
 
-### TXR\_SceneManager (Prefab)
+### [TXR\_SceneManager (Prefab)](https://github.com/TAU-XR/TAUXR-OpenTemplate/blob/main/Docs/Scene%20Manager.md)
 
 Handles scene loading. Includes:
 
