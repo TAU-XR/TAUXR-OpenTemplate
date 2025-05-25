@@ -11,6 +11,10 @@ This guide covers the key components of the toolkit:
 
 Each component is optimized for **Meta Quest devices**, streamlining development and improving performance.
 
+## Requirements
+
+- Unity 6 or  Unity 2022.3 LTS +
+ 
 ---
 
 ## 🗂️ Unity Project Template
@@ -50,4 +54,4 @@ Central to the toolkit, the **TXR Player** handles player presence and inputs:
 
 ---
 
-The Development of these tools was sponcered by the Minerva Center for Human Intelligence in immersive, augmented and mixed Realities.
+The Development of these tools was sponsored by the Minerva Center for Human Intelligence in immersive, augmented and mixed Realities.
