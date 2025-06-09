@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7217fcf0d79aa81419852a7bdf528ae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shouldProjectUseCalibration: 1
-  _shouldCalibrateOnEditor: 1
+  _shouldProjectUseCalibration: 0
+  _shouldCalibrateOnEditor: 0
