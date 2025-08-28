@@ -5,23 +5,14 @@ using UnityEngine;
 
 public class Pincher : MonoBehaviour
 {
-    //public float Strength => _pinchStrength;
-    public float Strength
-    {
-        get { return _pinchStrength; }
-        set { _pinchStrength = value; }
-    }using System;
-using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime;
-using UnityEngine;
-
-public class Pincher : MonoBehaviour
-{
     public float Strength
     {
         get { return _pinchStrength; }
         set { _pinchStrength = value; }
     }
+
+    [Header("Pincher Position")]
+    public Transform stablePincher; // Transform to store the calculated pincher position
 
     private OVRSkeleton _ovrSkeleton;
     private const int INDEX_I = 20, THUMB_I = 19;
@@ -71,11 +62,20 @@ public class Pincher : MonoBehaviour
         Vector3 indexFingerPosition = _indexTipT.position;
         Vector3 thumbFingerPosition = _thumbTipT.position;
 
-        // stable pincher aim: offset from index knuckle toward thumb tip
+        // Calculate pincher position as the middle point between index and thumb
+        Vector3 pincherTargetPosition = (indexFingerPosition + thumbFingerPosition) * 0.5f;
+
+        // Calculate stable pincher position: offset from index knuckle toward thumb tip
         Vector3 knucklePos = _indexKnuckleT.position;
         Vector3 dirToThumb = thumbFingerPosition - knucklePos;
         if (dirToThumb.sqrMagnitude > 1e-8f) dirToThumb.Normalize();
-        Vector3 pincherTargetPosition = knucklePos + dirToThumb * STABLE_OFFSET;
+        Vector3 stablePincherPosition = knucklePos + dirToThumb * STABLE_OFFSET;
+
+        // Update the stable pincher transform if assigned
+        if (stablePincher != null)
+        {
+            stablePincher.position = stablePincherPosition;
+        }
 
         transform.position = pincherTargetPosition;
 
@@ -91,47 +91,6 @@ public class Pincher : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.TryGetComponent(out APinchable pinchable)) return;
-        Debug.Log("Adding pinchable: " + pinchable.name);
-        _pinchManager.AddPinchableInRange(pinchable);
-    }
-}
-
-
-    private OVRSkeleton _ovrSkeleton;
-    private const int INDEX_I = 20, THUMB_I = 19;
-    private float _pinchStrength;
-
-    private float _pinchDistance;
-
-    private PinchManager _pinchManager;
-
-    public void Init(OVRSkeleton ovrSkeleton, PinchManager pinchManager)
-    {
-        _ovrSkeleton = ovrSkeleton;
-        _pinchManager = pinchManager;
-    }
-
-    public void UpdatePincher()
-    {
-        // set pinch position
-        Vector3 indexFingerPosition = _ovrSkeleton.Bones[INDEX_I].Transform.position;
-        Vector3 thumbFingerPosition = _ovrSkeleton.Bones[THUMB_I].Transform.position;
-        Vector3 pincherTargetPosition = (thumbFingerPosition + indexFingerPosition) / 2;
-        transform.position = pincherTargetPosition;
-
-        // set pinch strength based on finger distance
-        _pinchDistance = (indexFingerPosition - thumbFingerPosition).sqrMagnitude;
-        _pinchStrength = Mathf.InverseLerp(_pinchManager.Configuration.PinchMaxDistance, _pinchManager.Configuration.PinchMinDistance,
-            _pinchDistance);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!other.TryGetComponent(out APinchable pinchable))
-        {
-            return;
-        }
-
         Debug.Log("Adding pinchable: " + pinchable.name);
         _pinchManager.AddPinchableInRange(pinchable);
     }
